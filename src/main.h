@@ -7,10 +7,8 @@
 #include <map>
 #include "log.h"
 
-using namespace std;
-
-const string PROG_NAME = "Factorial Calculator";
-const string PROG_DESC = "Interactively calculates factorial based on input.";
-const string VERSION = "v0.2";
+const std::string PROG_NAME = "Factorial Calculator";
+const std::string PROG_DESC = "Interactively calculates factorial based on input.";
+const std::string VERSION = "v0.2";
 
 #endif
