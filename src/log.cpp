@@ -1,17 +1,16 @@
-#include "log.h"
+#include "log.hpp"
 
-Log::Log() {
-    log_stream.open( "log.txt" );
-    verbosity_level = Verbosity::Quiet;
-}
+Log::Log( std::string log_file, Verbosity verbosity ) {
+    verbosity_level = verbosity;
 
-Log::Log( std::string log_file ) {
     log_stream.open( log_file.c_str() );
-    verbosity_level = Verbosity::Quiet;
-}
-
-void Log::setVerbosity( Verbosity level ) {
-    verbosity_level = level;
+    if( !log_stream.is_open() ) {
+        std::cout << "Log file, " << log_file << ", could not be opened." << std::endl;
+        std::cout << "Errors/warnings will be redirected to console output." << std::endl;
+    }
+    else {
+        write( "Using log file: " + log_file + ".\n", Verbosity::Quiet );
+    } 
 }
 
 void Log::write( std::string message, Verbosity level ) {
@@ -23,16 +22,6 @@ void Log::write( std::string message, Verbosity level ) {
             std::cout << message;
         }
     }
-}
-
-void Log::checkStream( std::string filename ) {
-    if( !log_stream.is_open() ) {
-        std::cout << "Log file, " << filename << ", could not be opened." << std::endl;
-        std::cout << "Errors/warnings will be redirected to console output." << std::endl;
-    }
-    else {
-        write( "Using log file: " + filename + ".", Verbosity::Verbose );
-    } 
 }
 
 Log::~Log() {
